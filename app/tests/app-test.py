@@ -1,4 +1,4 @@
-import unittest, sys
+import unittest
 from app.src.app import my_function
 
 
