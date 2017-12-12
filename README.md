@@ -73,6 +73,7 @@ def my_function(param1, param2):
     return param1 + param2   
 ```
 
+
 # Unit Tests
 
 In order to test this, we are going to write our test scenarios using Python unittest (tests/app-test.py):
