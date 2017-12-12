@@ -213,7 +213,7 @@ Go to your Travis CI dashboard, connect your Github account then sync your repos
 After every code commit, a build will start automatically and you will be notified by email on its status.
 
 
-# Managing Pull Requests
+# Managing Pull Requests
 
 Now, if your are working on a different branch than the master, which is the case for all development teams, you need to make a pull request then merge your code. Let's try to test this:
 
