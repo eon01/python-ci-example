@@ -11,9 +11,9 @@ Continuous integration is about delivering small chunk of code continuously whic
 
 There are several CI tools like Jenkins, Buildbot, TravisCI, GoCD and Team Foundation Server.
 
-# Creating A Python Application
+# Preparing Our Application
 
-In this practice lab, we are going to work on a Python project. During the CI of this application, we need to add the dependencies installation step followed by an automated test. 
+In this practice lab, we are going to work on a Python project. The purpose of this lab is creating a system that trigger a list of tasks once a developer push a code to a share code repository. 
 
 We are going to use:
 
@@ -41,7 +41,7 @@ __init__.py
 README.md    
 ```
 
-Where app.py is the source of our application, app-test.py is the test case and all of the __init__.py files are empty.
+Where app.py is the source of our application, app-test.py is the test case and all of the \__init\__.py files are empty.
 
 You can also download the .gitignore file from [this repository](https://github.com/github/gitignore/blob/master/Python.gitignore).
 
@@ -59,6 +59,12 @@ c:\>c:\Python35\python -m venv c:\path\to\myenv
 ```
 
 If you are using Windows.
+
+If everything is fine, let's activate it:
+
+```
+. /path/to/new/virtual/environment/bin/activate
+```
 
 Our app.py is a simple application that returns the sum of two numbers:
 
@@ -164,7 +170,7 @@ This file will tell Travis CI
 
 You can customize your build environment and add the set of steps in this file. 
 
-Travis CI uses .travis.yml file in the root of your repository to learn about your project enviroenement, how you want your builds to be executed, what kind of tests to perform and other information like emails, Campfire and IRC rooms to notify about build failures.
+Travis CI uses .travis.yml file in the root of your repository to learn about your project environment, how you want your builds to be executed, what kind of tests to perform and other information like emails, Campfire and IRC rooms to notify about build failures.
 
 This is the file we are going to use:
 
@@ -183,7 +189,7 @@ script:
 
 # Setup Our Git
 
-Now that we finished writing our code, the .gitignore file, the test and the Travis CI configuration, we need to create a Gituhb repository and link our Travis CI to our Github account in order to import the new project.
+Now that we finished writing our code, the .gitignore file, the test and the Travis CI configuration, we need to create a Github repository and link our Travis CI to our Github account in order to import the new project.
 
 
 ```
