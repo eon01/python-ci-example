@@ -232,7 +232,8 @@ If the pull request is accepted an merged with the master branch, our CI tool wi
 ![Circle CI Pull Request Build](images/pr.png "Circle CI Pull Request Build")
 
 
-# Conclusion
+
+# Conclusion
 
 During this practice lab, we created an application using Python using Virtualenv for the environment isolation then we created a Github repository for this application and linked it to our Travis CI account.
 The continuous build and test were described in our .travis.yml file. It is possible to add more advanced features like ChatOps using Slack, IRC or any alternative, add more steps to your integration pipeline like creating a Docker image or deploying to a Azure Web App.. etc
