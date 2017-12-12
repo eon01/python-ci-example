@@ -200,11 +200,23 @@ Now, if your are working on a different branch than the master, which is the cas
 
 Create the branch "dev" on your local machine:
 
+```
 git checkout -b dev
+```
 
 Add your modifications then push them to the dev branch:
 
+```
 git push origin dev
+```
+
+Once your modifications are added to the remote dev branch, Circle CI will trigger a new build for the dev branch and you will notice that you can make a pull request on the master branch:
+
+![Git Pull Request](images/pull.png "Git Pull Request")
+
+If the pull request is accepted an merged with the master branch, our CI tool will trigger a new build under the "Pull Requests" tab:
+
+![Circle CI Pull Request Build](images/pr.png "Circle CI Pull Request Build")
 
 
 
