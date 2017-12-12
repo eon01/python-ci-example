@@ -1,3 +1,235 @@
-Practice_Lab_Continuous_Integration
+# Introduction
+
+
+
+Continous integration (CI) is one of the Agile and DevOps software devolpement practices. It helps developement teams avoid  merge conflicts by setting up a continous merging of new code updates into a shared central repository.
+
+Automating the build and testing of code each time one of your team members commit a change to your version control is one of the best practices in DevOps. This practice adds the "fail-fast" paradigm for your application development and an iterative developement approach.
+
+Continous integration is about delivering small chunk of code continously which improves a developement team productivity and helps them fix bugs quickly before the release and deployement phases.
+
+
+There are several CI tools like Jenkins, Buildbot, TravisCI, GoCD and Team Foundation Server.
+
+In this practice lab, we are going to work on a Python project. During the CI of this application, we need to add the depandancies installation step followed by an automated test. 
+
+We are going to use:
+
+- Python 3.5
+- Python Virtualenv to create an isolated enviroenement for our application
+- Unittest: A unit testing framework for Python
+- Github: A web-based Git version control repository hosting service
+- CircleCI: A hosted continuous integration testing tool integrated with code management services such as GitHub
+
+This is the structure of our code:
+
+```
+
+app/
+├── __init__.py
+├── src
+│   ├── app.py
+│   ├── __init__.py
+└── tests
+    ├── app-test.py
+    └── __init__.py
+.gitignore
+.travisci
+__init__.py
+README.md    
+```
+
+Where app.py is the source of our application, app-test.py is the test case and all of the __init__.py files are empty.
+
+You can also download the .gitignore file from [this repository](https://github.com/github/gitignore/blob/master/Python.gitignore).
+
+You can use Python Virtualenv and create an isolated environement. You can download virtualenv source from [here](https://pypi.python.org/pypi/virtualenv) and execute the setup.py script to install it. To activate your virtual environement execute:
+
+
+```
+python3 -m venv /path/to/new/virtual/environment
+```
+
+If you are using Linux.
+
+```
+c:\>c:\Python35\python -m venv c:\path\to\myenv
+```
+
+If you are using Windows.
+
+Our app.py is a simple application that returns the sum of two numbers:
+
+```
+def my_function(param1, param2):
+    return param1 + param2   
+```
+
+In order to test this, we are going to write our test scenarios using Python unittest (tests/app-test.py):
+
+```
+import unittest
+from app.src.app import my_function
+
+
+class MyTest(unittest.TestCase):
+    def test_my_function(self):
+        self.assertEqual(my_function(1, 1), 2)
+        self.assertEqual(my_function(1, -1), 0)
+        self.assertEqual(my_function(0, 0), 0)
+        self.assertEqual(my_function(-1, -1), -2)
+        self.assertEqual(my_function(1.0, 1), 2)        
+        self.assertEqual(my_function(1.1, 1.1), 2.2)        
+        
+        
+        
+if __name__ == '__main__':
+    unittest.main()        
+```
+
+In the previous test code, we tested different scenarios like summing up two negative integers or two floats. It is a good practice to think about the best possible scenarios and implement the suitalble test cases in order to reduce the number of bugs.
+
+You can execute this test case using the following command:
+
+```
+python app/tests/app-test.py 
+```
+
+If tests run without any problem you shoud see:
+
+```
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+```
+
+If you have one or more problems with your test assertions, the test will not pass.
+
+For example:
+
+```
+import unittest
+from app.src.app import my_function
+
+
+class MyTest(unittest.TestCase):
+    def test_my_function(self):
+        # 1 + 1 = 4
+        self.assertEqual(my_function(1, 1), 4)
+        
+        
+        
+if __name__ == '__main__':
+    unittest.main()        
+```
+
+The output of the test execution will be similar to the following:
+
+```
+F
+======================================================================
+FAIL: test_my_function (__main__.MyTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "app/tests/app-test.py", line 7, in test_my_function
+    self.assertEqual(my_function(1, 1), 4)
+AssertionError: 2 != 4
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+```
+
+When you use a programming language to develop your application, you usually need to install libraries. This is the case for Python and that's why we need to declare our depandancies. This is done in the requirements.txt file using this command:
+
+```
+pip freeze > requirements.txt
+```
+
+In this project, we are not using any additional library, that's why our requirements.txt will be empty but always remember this step.
+
+In order to integrate the Travis CI workflow, we should create the configuration file (.travis.yml). 
+This file will tell Travis CI 
+
+
+
+You can customize your build environment and add the set of steps in this file. 
+
+Travis CI uses .travis.yml file in the root of your repository to learn about your project enviroenement, how you want your builds to be executed, what kind of tests to perform and other information like emails, Campfire and IRC rooms to notify about build failures.
+
+This is the file we are going to use:
+
+```
+language: python
+python:
+  - "3.5"
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+# command to run tests
+script:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)
+  - python app/tests/app-test.py
+```
+
+Now that we finished writing our code, the .gitignore file, the test and the Travis CI configuration, we need to create a Gituhb repository and link our Travis CI to our Github account in order to import the new project.
+
+
+```
+git init
+git add .
+git commit -m "First commit"
+git remote add origin <remote repository URL>
+git push origin master
+```
+
+Don't forget to change  the <remote repository URL> by its real value, you can get it from your Github repositry:
+
+![repository URL](images/url.png "repository URL")
+
+Go to your Travis CI dashboard, connect your Github account then sync your repositories and add the new project. This will generate your first build and you can see wether your build passes or no.
+
+![Build History ](images/buids.png "Build History")
+
+After every code commit, a build will start automatically and you will be notified by email on its status.
+
+Now, if your are working on a different branch than the master, which is the case for all developement teams, you need to make a pull request then merge your code. Let's try to test this:
+
+Create the branch "dev" on your local machine:
+
+git checkout -b dev
+
+Add your modifications then push them to the dev branch:
+
+git push origin dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
