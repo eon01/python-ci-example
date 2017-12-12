@@ -2,21 +2,23 @@
 
 
 
-Continous integration (CI) is one of the Agile and DevOps software devolpement practices. It helps developement teams avoid  merge conflicts by setting up a continous merging of new code updates into a shared central repository.
+Continuous integration (CI) is one of the Agile and DevOps software development practices. It helps development teams avoid  merge conflicts by setting up a continuous merging of new code updates into a shared central repository.
 
-Automating the build and testing of code each time one of your team members commit a change to your version control is one of the best practices in DevOps. This practice adds the "fail-fast" paradigm for your application development and an iterative developement approach.
+Automating the build and testing of code each time one of your team members commit a change to your version control is one of the best practices in DevOps. This practice adds the "fail-fast" paradigm for your application development and an iterative development approach.
 
-Continous integration is about delivering small chunk of code continously which improves a developement team productivity and helps them fix bugs quickly before the release and deployement phases.
+Continuous integration is about delivering small chunk of code continuously which improves a development team productivity and helps them fix bugs quickly before the release and deployment phases.
 
 
 There are several CI tools like Jenkins, Buildbot, TravisCI, GoCD and Team Foundation Server.
 
-In this practice lab, we are going to work on a Python project. During the CI of this application, we need to add the depandancies installation step followed by an automated test. 
+# Creating A Python Application
+
+In this practice lab, we are going to work on a Python project. During the CI of this application, we need to add the dependencies installation step followed by an automated test. 
 
 We are going to use:
 
 - Python 3.5
-- Python Virtualenv to create an isolated enviroenement for our application
+- Python Virtualenv to create an isolated environment for our application
 - Unittest: A unit testing framework for Python
 - Github: A web-based Git version control repository hosting service
 - CircleCI: A hosted continuous integration testing tool integrated with code management services such as GitHub
@@ -43,7 +45,7 @@ Where app.py is the source of our application, app-test.py is the test case and 
 
 You can also download the .gitignore file from [this repository](https://github.com/github/gitignore/blob/master/Python.gitignore).
 
-You can use Python Virtualenv and create an isolated environement. You can download virtualenv source from [here](https://pypi.python.org/pypi/virtualenv) and execute the setup.py script to install it. To activate your virtual environement execute:
+You can use Python Virtualenv and create an isolated environment. You can download virtualenv source from [here](https://pypi.python.org/pypi/virtualenv) and execute the setup.py script to install it. To activate your virtual environment execute:
 
 
 ```
@@ -64,6 +66,8 @@ Our app.py is a simple application that returns the sum of two numbers:
 def my_function(param1, param2):
     return param1 + param2   
 ```
+
+# Unit Tests
 
 In order to test this, we are going to write our test scenarios using Python unittest (tests/app-test.py):
 
@@ -87,7 +91,7 @@ if __name__ == '__main__':
     unittest.main()        
 ```
 
-In the previous test code, we tested different scenarios like summing up two negative integers or two floats. It is a good practice to think about the best possible scenarios and implement the suitalble test cases in order to reduce the number of bugs.
+In the previous test code, we tested different scenarios like summing up two negative integers or two floats. It is a good practice to think about the best possible scenarios and implement the suitable test cases in order to reduce the number of bugs.
 
 You can execute this test case using the following command:
 
@@ -95,7 +99,7 @@ You can execute this test case using the following command:
 python app/tests/app-test.py 
 ```
 
-If tests run without any problem you shoud see:
+If tests run without any problem you should see:
 
 ```
 .
@@ -143,7 +147,9 @@ Ran 1 test in 0.001s
 FAILED (failures=1)
 ```
 
-When you use a programming language to develop your application, you usually need to install libraries. This is the case for Python and that's why we need to declare our depandancies. This is done in the requirements.txt file using this command:
+# Dependencies
+
+When you use a programming language to develop your application, you usually need to install libraries. This is the case for Python and that's why we need to declare our dependencies. This is done in the requirements.txt file using this command:
 
 ```
 pip freeze > requirements.txt
@@ -175,6 +181,8 @@ script:
   - python app/tests/app-test.py
 ```
 
+# Setup Our Git
+
 Now that we finished writing our code, the .gitignore file, the test and the Travis CI configuration, we need to create a Gituhb repository and link our Travis CI to our Github account in order to import the new project.
 
 
@@ -186,17 +194,22 @@ git remote add origin <remote repository URL>
 git push origin master
 ```
 
-Don't forget to change  the <remote repository URL> by its real value, you can get it from your Github repositry:
+Don't forget to change  the <remote repository URL> by its real value, you can get it from your Github repository:
 
 ![repository URL](images/url.png "repository URL")
 
-Go to your Travis CI dashboard, connect your Github account then sync your repositories and add the new project. This will generate your first build and you can see wether your build passes or no.
+# Setup Travis CI
+
+Go to your Travis CI dashboard, connect your Github account then sync your repositories and add the new project. This will generate your first build and you can see whether your build passes or no.
 
 ![Build History ](images/buids.png "Build History")
 
 After every code commit, a build will start automatically and you will be notified by email on its status.
 
-Now, if your are working on a different branch than the master, which is the case for all developement teams, you need to make a pull request then merge your code. Let's try to test this:
+
+# Managing Pull Requests
+
+Now, if your are working on a different branch than the master, which is the case for all development teams, you need to make a pull request then merge your code. Let's try to test this:
 
 Create the branch "dev" on your local machine:
 
@@ -219,9 +232,10 @@ If the pull request is accepted an merged with the master branch, our CI tool wi
 ![Circle CI Pull Request Build](images/pr.png "Circle CI Pull Request Build")
 
 
+# Conclusion
 
-
-
+During this practice lab, we created an application using Python using Virtualenv for the environment isolation then we created a Github repository for this application and linked it to our Travis CI account.
+The continuous build and test were described in our .travis.yml file. It is possible to add more advanced features like ChatOps using Slack, IRC or any alternative, add more steps to your integration pipeline like creating a Docker image or deploying to a Azure Web App.. etc
 
 
 
