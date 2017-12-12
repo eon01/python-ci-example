@@ -73,10 +73,9 @@ def my_function(param1, param2):
     return param1 + param2   
 ```
 
+# Preparing Our Application
 
-# Unit Tests
-
-In order to test this, we are going to write our test scenarios using Python unittest (tests/app-test.py):
+In order to test our application, we are going to write our a scenario using Python unittest (tests/app-test.py):
 
 ```
 import unittest
